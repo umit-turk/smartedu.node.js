@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 const pageRoute = require('./routes/pageRoute');
 const courseRoute = require('./routes/courseRoute');
@@ -15,6 +16,9 @@ app.set("view engine", "ejs");
 
 //Middlewares
 app.use(express.static("public"));
+/* req.body den gelen verileri yakalamak için alttaki iki middlewareyi kullanmalıyız. */
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-
 
 //Routes
 app.use("/", pageRoute);
