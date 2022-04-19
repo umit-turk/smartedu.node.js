@@ -21,6 +21,11 @@ const CourseSchema = new Schema({
     slug: {
         type: String,
         unique: true
+    },
+    //kursları oluştururken bu kursların bir kategorisi olmasını isteriz
+    category:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Category'
     }
 });
 
