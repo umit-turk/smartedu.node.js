@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 const Schema = mongoose.Schema;
 
 /* veri tabanımızdaki oluşacak olan kurs dökümanlarının yapısının ne olacağını buradaki şablon sayesinde belirliyoruz*/
@@ -16,7 +17,21 @@ const CourseSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+    },
+    slug: {
+        type: String,
+        unique: true
     }
+});
+
+//kurs oluşturulduğunda veri tabanına kaydetmeden önce slug oluşturmasını istiyoruz
+//slug alanı isim alanından oluşuyor.
+CourseSchema.pre('validate',function(next){
+    this.slug = slugify(this.name, {
+        lower: true,
+        strict:true
+    });
+    next();
 })
 
 const Course = mongoose.model('Course', CourseSchema);
