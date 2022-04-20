@@ -18,3 +18,10 @@ exports.getRegisterPage = (req, res) => {
   });
 };
 
+exports.getLoginPage = (req, res) => {
+  res.status(200).render("login", {
+    page_name: "login",
+  });
+};
+
+
