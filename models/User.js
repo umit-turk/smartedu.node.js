@@ -15,6 +15,11 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true,
+    },
+    role: {
+        type: String,
+        enum:["student","teacher","admin"],
+        default: "student"
     }
 });
 //kullanıcıdan aldığın passwordu şifrele ve kaydetmeden önmce hash olarak kaydet.
