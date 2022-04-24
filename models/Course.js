@@ -26,6 +26,11 @@ const CourseSchema = new Schema({
     category:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Category'
+    },
+    //yeni bir kurs oluşturduğumuzda hangi kullanıcı ile giriş yaptığımızda onun id sini alacağız.
+    user : {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
     }
 });
 
