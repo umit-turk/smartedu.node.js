@@ -50,7 +50,7 @@ exports.logoutUser = (req, res) => {
 exports.getDashboardPage = async (req, res) => {
   //hangi kullanıcı giriş yapmış onu yakalayacağız.
   //id si sessionumuzdaki user id ye eşit olan kullanıcıyı bul.
-  const user = await User.findOne({_id: req.session.userID})
+  const user = await User.findOne({_id: req.session.userID}).populate('courses');
   const categories = await Category.find();
   /* kursların içerisindeki user id ile sessionumuzdaki user id si örtüşenleri bulacak.  */
   const courses = await Course.find({user: req.session.userID})

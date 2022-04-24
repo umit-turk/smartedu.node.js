@@ -20,7 +20,11 @@ const UserSchema = new Schema({
         type: String,
         enum:["student","teacher","admin"],
         default: "student"
-    }
+    },
+    courses: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Course'
+    }]
 });
 //kullanıcıdan aldığın passwordu şifrele ve kaydetmeden önmce hash olarak kaydet.
 //passwordu veri tabanına kaydetmeden önce bir middleware yazacağız ve pre metodunu kullanacağız
