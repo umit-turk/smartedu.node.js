@@ -28,13 +28,18 @@ const UserSchema = new Schema({
 });
 //kullanıcıdan aldığın passwordu şifrele ve kaydetmeden önmce hash olarak kaydet.
 //passwordu veri tabanına kaydetmeden önce bir middleware yazacağız ve pre metodunu kullanacağız
+//user da bir değişiklik yaptıysak ancak şifrede herhangi bir değişiklik yapmadıysak şifreyi tekrardan hash etmiyor.
 UserSchema.pre('save',function(next){
     const user = this;
-    bcrypt.hash(user.password, 10, (error, hash) => {
-        console.log(error);
-        user.password = hash;
-        next();
+    if(!user.isModified('password')) return next();
 
+    bcrypt.genSalt(10, function(err, salt) {
+        if(err) return next(err);
+        bcrypt.hash(user.password, salt, function(err, hash) {
+            if(err) return next(err);
+            user.password = hash;
+            next();
+        })
     })
 })
 
